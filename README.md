@@ -1,127 +1,128 @@
 # Currency Converter
 
-A real-time currency converter web application that allows users to convert between multiple global currencies using live exchange rates.
+A lightweight, real-time currency converter built with vanilla JavaScript, HTML, and CSS. It converts between major world currencies using live exchange rates and updates instantly as you type or change a currency.
 
-## 📋 Description
+## Demo
 
-Currency Converter is a lightweight, user-friendly web application built with vanilla JavaScript, HTML, and CSS. It provides instant currency conversion between 7 major currencies with real-time exchange rates fetched from the ExchangeRate API.
+🔗 **Live Demo:** [jaikaran109.github.io/Currency-Conerter](https://jaikaran109.github.io/Currency-Conerter/)
 
-## ✨ Features
+Pick a source and target currency, enter an amount, and the converted value plus the live exchange rate appear automatically — no page reload required.
 
-- **Real-time Conversion**: Get accurate, live exchange rates updated instantly
-- **Multiple Currencies**: Support for 7 major currencies:
-  - USD (US Dollar)
-  - EUR (Euro)
-  - GBP (British Pound)
-  - INR (Indian Rupee)
-  - CAD (Canadian Dollar)
-  - AUD (Australian Dollar)
-  - JPY (Japanese Yen)
-- **Bidirectional Conversion**: Convert from any currency to any other currency
-- **Responsive UI**: Clean, intuitive interface with real-time updates
-- **No Dependencies**: Built with vanilla JavaScript - no frameworks or libraries required
-- **Live Exchange Rate Display**: Shows current exchange rate between selected currencies
+## Features
 
-## 🛠️ Technologies Used
+- **Live exchange rates** pulled from a public currency API
+- **Bidirectional conversion** between any of the supported currencies
+- **Instant updates** on input or currency change (no submit button needed)
+- **Exchange rate display** showing the current rate between the two selected currencies
+- **Zero dependencies** — pure HTML, CSS, and JavaScript
 
-- **HTML5**: Markup and structure
-- **CSS3**: Styling and layout (Flexbox)
-- **JavaScript (ES6)**: Core functionality and API integration
-- **ExchangeRate API**: Real-time currency exchange data
-- **Fetch API**: HTTP requests for currency data
+## Supported Currencies
 
-## 📦 Installation
+| Code | Currency |
+|------|----------|
+| USD  | US Dollar |
+| EUR  | Euro |
+| GBP  | British Pound |
+| INR  | Indian Rupee |
+| CAD  | Canadian Dollar |
+| AUD  | Australian Dollar |
+| JPY  | Japanese Yen |
 
-1. Clone the repository or download the project files:
-   ```bash
-   git clone https://github.com/yourusername/currency-converter.git
-   cd currency-converter
-   ```
+## Tech Stack
 
-2. No dependencies or build steps required! Simply open `index.html` in your web browser.
+- **HTML5** — structure and markup
+- **CSS3 (Flexbox)** — layout and styling
+- **JavaScript (ES6)** — DOM manipulation and API integration
+- **[ExchangeRate-API](https://www.exchangerate-api.com/)** — live exchange rate data
+- **Fetch API** — handles HTTP requests to the exchange rate service
 
-## 🚀 Usage
+## Project Structure
 
-1. Open `index.html` in any modern web browser
-2. Select your source currency from the first dropdown
-3. Select your target currency from the second dropdown
-4. Enter the amount you want to convert in the input field
-5. The converted amount will automatically display in the right input field
-6. The current exchange rate is shown below the inputs
+```
+currency-converter/
+├── index.html      # Markup for the converter UI
+├── app.js           # Conversion logic and API calls
+├── style.css        # Styling and layout
+└── README.md        # Project documentation
+```
 
-**Example**: Convert $100 USD to INR
-- Select USD from the first dropdown
-- Select INR from the second dropdown
-- Enter "100" in the input field
-- View the conversion result instantly
+## Getting Started
 
-## 🔌 API Configuration
+### Prerequisites
 
-This project uses the **ExchangeRate API** for real-time currency conversion.
+- A modern web browser
+- An internet connection (required for live exchange rate data)
+- A free API key from [exchangerate-api.com](https://www.exchangerate-api.com/) (see [Configuration](#configuration))
 
-**Current Endpoint**:
+### Installation
+
+```bash
+git clone https://github.com/<your-username>/currency-converter.git
+cd currency-converter
+```
+
+No build step or package installation is required. The project runs entirely in the browser.
+
+### Running Locally
+
+Simply open `index.html` in your browser, or serve it with a lightweight local server:
+
+```bash
+npx serve .
+```
+
+## Configuration
+
+This project calls the ExchangeRate-API to fetch live rates:
+
 ```
 https://v6.exchangerate-api.com/v6/{API_KEY}/latest/{CURRENCY_CODE}
 ```
 
 To use your own API key:
-1. Sign up at [exchangerate-api.com](https://www.exchangerate-api.com)
-2. Replace the API key in `app.js` (line with the fetch URL) with your own
 
-## 📁 Project Structure
+1. Sign up for a free key at [exchangerate-api.com](https://www.exchangerate-api.com/).
+2. In `app.js`, replace the placeholder in the fetch URL with your key.
 
-```
-currency-converter/
-├── index.html          # HTML markup
-├── app.js             # JavaScript logic and API calls
-├── style.css          # Styling and layout
-└── README.md          # Project documentation
-```
+> **Security note:** Avoid committing real API keys to a public repository. For a production deployment, route the request through a small backend or serverless function so the key isn't exposed in client-side code.
 
-## 💻 How It Works
+## Usage
 
-1. **DOM Element Selection**: The script selects all necessary HTML elements using `getElementById()`
-2. **Event Listeners**: Listens for changes in currency selection or input values
-3. **API Fetch**: When changes occur, fetches current exchange rates from the API
-4. **Data Processing**: Converts JSON response to readable format
-5. **Real-time Update**: Displays updated conversion rates and calculated values
+1. Select a source currency from the first dropdown.
+2. Select a target currency from the second dropdown.
+3. Enter an amount in the first input field.
+4. The converted amount and current exchange rate update automatically.
 
-## 🎨 Styling
+**Example:** Converting 100 USD to INR — select `USD` → `INR`, enter `100`, and the result appears instantly in the second field.
 
-- **Color Scheme**: Bright yellow background with dark cyan converter container
-- **Typography**: Courier New font family for consistent styling
-- **Layout**: Flexbox-based responsive design
-- **Rounded Corners**: Modern aesthetic with 40px border radius
+## How It Works
 
-## 🚨 Important Notes
+1. DOM elements (selects, inputs, and the rate display) are referenced on load.
+2. `updateRate()` runs once on page load to populate live data immediately.
+3. Event listeners on the currency dropdowns and amount input trigger `updateRate()` on any change.
+4. The function fetches the latest rates for the selected source currency, extracts the rate for the target currency, updates the displayed rate, and recalculates the converted amount.
 
-- Requires an active internet connection for API calls
-- Exchange rates are fetched in real-time and may vary
-- The API key in the project is for demonstration purposes; consider using your own for production
-- Works in all modern browsers (Chrome, Firefox, Safari, Edge)
+## Known Limitations / Roadmap
 
-## 📝 Browser Compatibility
+- No error handling yet for failed API requests or network issues
+- No loading indicator while a request is in flight
+- Layout centering could be refined for smaller screens
+- Consider migrating from `getElementById` to `querySelector` for consistency
+- A backend proxy would improve API key security for production use
 
-- Chrome (Latest)
-- Firefox (Latest)
-- Safari (Latest)
-- Microsoft Edge (Latest)
+## Contributing
 
-## 🤝 Contributing
+Contributions are welcome. To contribute:
 
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest improvements
-- Submit pull requests
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes
+4. Open a pull request
 
-## 📄 License
+## License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the [MIT License](LICENSE).
 
-## 👤 Author
+## Author
 
-Created as a learning project for web development.
-
----
-
-**Happy Converting! 💱**
+Built as a learning project for practicing DOM manipulation, event handling, and API integration in vanilla JavaScript.
